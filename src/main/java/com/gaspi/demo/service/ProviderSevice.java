@@ -1,12 +1,11 @@
 package com.gaspi.demo.service;
 
-import java.util.List;
-
 import com.gaspi.demo.model.Provider;
+import com.gaspi.demo.model.ResponseListProvider;
 
 public interface ProviderSevice {
 
-    List<Provider> getProvidersByPage(Long page);
+    ResponseListProvider getProvidersByPage(Long page);
 
     Provider getProviderById(String idProvider);
 

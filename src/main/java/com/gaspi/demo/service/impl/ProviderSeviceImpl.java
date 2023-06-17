@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gaspi.demo.exceptions.RequestException;
 import com.gaspi.demo.model.Provider;
+import com.gaspi.demo.model.ResponseListProvider;
 import com.gaspi.demo.repository.ProviderRepository;
 import com.gaspi.demo.service.ProviderSevice;
 import com.gaspi.demo.utilities.EnumSeverity;
@@ -86,13 +87,24 @@ public class ProviderSeviceImpl implements ProviderSevice {
     }
 
     @Override
-    public List<Provider> getProvidersByPage(Long page) {
+    public ResponseListProvider getProvidersByPage(Long page) {
 
         if (page <= 0) {
-            throw new RequestException(HttpStatus.BAD_REQUEST, "Oops!", EnumSeverity.ERROR, "Número de pagina invalida");
+            throw new RequestException(HttpStatus.BAD_REQUEST, "Oops!", EnumSeverity.ERROR,
+                    "Número de pagina invalida");
         }
-        
-        return providerRepository.getProvidersByPage(page);
+
+        ResponseListProvider response = new ResponseListProvider();
+
+        List<Provider> listProviders = providerRepository.getProvidersByPage(page);
+
+        int allProviders = providerRepository.getAllProviders().size();
+
+        response.setAllProviders(allProviders);
+        response.setListProviders(listProviders);
+
+        return response;
+
     }
 
 }

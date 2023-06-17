@@ -1,7 +1,5 @@
 package com.gaspi.demo.controllers;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gaspi.demo.model.JsonStringify;
 import com.gaspi.demo.model.Provider;
+import com.gaspi.demo.model.ResponseListProvider;
 import com.gaspi.demo.service.ProviderSevice;
 import com.gaspi.demo.utilities.EnumSeverity;
 
@@ -38,8 +37,9 @@ public class ProviderController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "pagina/{currentPage}")
     public ResponseEntity<Object> getProviderById(@PathVariable Long currentPage) {
-        List<Provider> listProvider = providerSevice.getProvidersByPage(currentPage);
-        return ResponseEntity.ok().body(listProvider);
+
+        ResponseListProvider responseListProvider = providerSevice.getProvidersByPage(currentPage);
+        return ResponseEntity.ok().body(responseListProvider);
     }
 
     @CrossOrigin(origins = "*")
